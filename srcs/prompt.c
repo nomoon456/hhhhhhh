@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/19 11:55:35 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/27 12:28:39 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include "minishell.h"
 #include "libft.h"
+
+int g_sig = 0;
 
 int	print_prompt(char *buf)
 {
@@ -76,6 +78,7 @@ int	start(int argc, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
+	signal(SIGINT, sigint_handler);
 	return (start(argc, argv, envp));
 	start(argc, argv, envp);
 	system("leaks minishell");

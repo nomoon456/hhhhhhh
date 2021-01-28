@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/24 10:02:22 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/27 13:15:55 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ int	change_value(t_env *env, char *argv)
 int	existing_name(t_env *env, char *argv)
 {
 	t_env	*tmp;
-	char	*compared_string;
 
 	tmp = env;
-	compared_string = ft_substr(argv, 0, len_env(argv));
+	char *test;
+	test = ft_substr(argv, 0, len_env(argv));
 	while (tmp->next)
 	{
-		if (!ft_strcmp(compared_string, tmp->name))
+		if (!ft_strcmp(test, tmp->name))
 		{
-			free(compared_string);
+			free(test);
 			return (0);
 		}
 		tmp = tmp->next;
 	}
-	free(compared_string);
+	free(test);
 	return (1);
 }
 
@@ -80,6 +80,7 @@ int	export_check(t_env *env, char **argv)
 	int i;
 
 	i = 0;
+
 	if (count_argv(argv) == 1)
 		export(env, count_argv(argv), argv[i]);
 	while (argv[++i])
@@ -107,7 +108,9 @@ int	export(t_env *env, int argc, char *argv)
 {
 	t_env	*tmp;
 	t_env	*temp;
-
+	char	*sub;
+	char	*subname;
+	
 	tmp = env;
 	if (argc == 1)
 		print_env_alphasort(env);
@@ -117,13 +120,19 @@ int	export(t_env *env, int argc, char *argv)
 			tmp = tmp->next;
 		if (!(temp = malloc(sizeof(t_env))))
 			return (0);
-		if (check_name(argv) == 1)
-			temp->aff = 0;
 		temp->name = tmp->name;
 		temp->value = tmp->value;
-		tmp->name = ft_substr(argv, 0, len_env(argv));
-		tmp->value = ft_substr(argv, len_env(argv) + 1,
+		
+		sub = ft_substr(argv, 0, len_env(argv));
+		subname = ft_substr(argv, len_env(argv) + 1,
 				ft_strlen(argv) - len_env(argv) - 1);
+		tmp->name = sub;
+		tmp->value = subname;
+		free(sub);
+		free(subname);
+		// tmp->name = ft_substr(argv, 0, len_env(argv));
+		// tmp->value = ft_substr(argv, len_env(argv) + 1,
+		// 		ft_strlen(argv) - len_env(argv) - 1);
 		tmp->next = temp;
 	}
 	return (1);

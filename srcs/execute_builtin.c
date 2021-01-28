@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/26 10:39:23 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/27 14:47:51 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int		builtin_exec(char *path, t_command *cmd, char **argv)
 	{
 		ft_cd(argv, cmd->env);
 	}
+	if (!ft_strcmp(path, "exit"))
+		ft_exit(cmd->env, cmd, argv);
 	return (1);
 }

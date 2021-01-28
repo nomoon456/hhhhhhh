@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/25 10:09:56 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/27 14:47:45 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@
 ** it is set to errno when an error is encountered.
 */
 
+extern int g_sig;
+
 typedef struct s_env {
 	char			*name;
 	char			*value;
-	int				aff;
 	int				sort;
 	struct s_env	*next;
 }			t_env;
@@ -94,5 +95,8 @@ int		update_pwd(t_env *env);
 int		ft_cd(char **args, t_env *env);
 int		change_value(t_env *env, char *argv);
 int		existing_name(t_env *env, char *argv);
+void	ft_exit(t_env *env, t_command *command, char **argv);
+void	sigint_handler(int signal);
+void	sigquit_handler(int signal);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:19:55 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/18 18:17:17 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/27 12:10:21 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int		execute(char *path, t_command *cmd, char **argv)
 		return (-1);
 	if ((pid = fork()) < 0)
 		return (-2);
+	g_sig = pid;
 	dup_selector(to_dup, cmd, new_pipe[1]);
 	if (pid == 0)
 	{
